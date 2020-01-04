@@ -2,34 +2,31 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace gk4p1
+namespace Engine
 {
-    class Triangle
+    public class Triangle
     {
-        public Point A { get; set; }
-        public Point B { get; set; }
-        public Point C { get; set; }
-        public float Az { get; set; }
-        public float Bz { get; set; }
-        public float Cz { get; set; }
+        public Vector4 A { get; set; }
+        public Vector4 B { get; set; }
+        public Vector4 C { get; set; }
         public List<Edge> GetEdges()
         {
             List<Edge> result = new List<Edge>();
 
             result.Add(new Edge(A, B));
-            result.Add(new Edge(A, C));
             result.Add(new Edge(B, C));
+            result.Add(new Edge(A, C));
 
             return result;
         }
 
-        public List<Point> GetVertex()
+        public List<Vector4> GetVertices()
         {
-            List<Point> result = new List<Point>();
-
+            List<Vector4> result = new List<Vector4>();
             result.Add(A);
             result.Add(B);
             result.Add(C);

@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace gk4p1
+namespace Engine
 {
     public class Edge
     {
-        public Point p1;
-        public Point p2;
+        public Vector4 p1;
+        public Vector4 p2;
 
-        public Edge(Point p1, Point p2)
+        public Edge(Vector4 p1, Vector4 p2)
         {
             if (p1.Y < p2.Y)
             {
@@ -32,10 +33,10 @@ namespace gk4p1
     {
         public int Compare(Edge edge1, Edge edge2)
         {
-            int y1 = edge1.p1.Y < edge1.p2.Y ? edge1.p1.Y : edge1.p2.Y;
-            int y2 = edge2.p1.Y < edge2.p2.Y ? edge2.p1.Y : edge2.p2.Y;
+            float y1 = edge1.p1.Y < edge1.p2.Y ? edge1.p1.Y : edge1.p2.Y;
+            float y2 = edge2.p1.Y < edge2.p2.Y ? edge2.p1.Y : edge2.p2.Y;
 
-            return y1 - y2;
+            return (int)(y1 - y2);
         }
     }
 

@@ -40,25 +40,26 @@
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tableLayoutPanel1.Controls.Add(this.Workspace, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 450);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(600, 366);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // Workspace
             // 
             this.Workspace.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Workspace.Location = new System.Drawing.Point(3, 3);
+            this.Workspace.Location = new System.Drawing.Point(2, 2);
+            this.Workspace.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Workspace.Name = "Workspace";
-            this.Workspace.Size = new System.Drawing.Size(594, 444);
+            this.Workspace.Size = new System.Drawing.Size(446, 362);
             this.Workspace.TabIndex = 0;
             this.Workspace.TabStop = false;
-            this.Workspace.Click += new System.EventHandler(this.Workspace_Click);
             this.Workspace.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
             this.Workspace.Resize += new System.EventHandler(this.Workspace_Resize);
             // 
@@ -68,10 +69,11 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(600, 366);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.tableLayoutPanel1.ResumeLayout(false);
