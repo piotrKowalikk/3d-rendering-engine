@@ -11,20 +11,23 @@ namespace Engine
     static public class ScanLine
     {
         //mesh is needed for colors - it resolves one mesh per time
-        static public Bitmap GetBitmap(Color[,] newPhoto, List<Triangle> t, Mesh m)
+        static public Bitmap GetBitmap(Color[,] newPhoto, List<(List<Triangle>,Mesh)> t)
         {
 
-            var triangles2 = t;
             //TODO:
             Color [] colors = new Color[] { Color.Black, Color.Yellow, Color.Green, Color.Red, Color.Blue, Color.Pink, Color.DarkViolet, Color.Silver, Color.Cyan, Color.Crimson };
-            int i = 0;
-            foreach (var triangle in triangles2)
+            foreach (var tt in t)
             {
-                if ((triangle.A.X > 0 && triangle.A.Y > 0 && triangle.B.X > 0 && triangle.B.Y > 0 && triangle.C.X > 0 && triangle.C.Y > 0) && (triangle.A.X < newPhoto.GetLength(0) && triangle.A.Y < newPhoto.GetLength(1) && triangle.B.X < newPhoto.GetLength(0) && triangle.B.Y < newPhoto.GetLength(1) && triangle.C.X < newPhoto.GetLength(0) && triangle.C.Y < newPhoto.GetLength(1)))
-                    ScanLine.FillPolygonNormal(triangle, colors[i / 2], newPhoto);
-                i++;
+                List<Triangle> triangles2 = tt.Item1;
+                Mesh m = tt.Item2;
+                int i = 0;
+                foreach (var triangle in triangles2)
+                {
+              //      if ((triangle.A.X > 0 && triangle.A.Y > 0 && triangle.B.X > 0 && triangle.B.Y > 0 && triangle.C.X > 0 && triangle.C.Y > 0) && (triangle.A.X < newPhoto.GetLength(0) && triangle.A.Y < newPhoto.GetLength(1) && triangle.B.X < newPhoto.GetLength(0) && triangle.B.Y < newPhoto.GetLength(1) && triangle.C.X < newPhoto.GetLength(0) && triangle.C.Y < newPhoto.GetLength(1)))
+                        ScanLine.FillPolygonNormal(triangle, colors[i / 2], newPhoto);
+                    i++;
+                }
             }
-
             Bitmap processedBitmap = new Bitmap(newPhoto.GetLength(0), newPhoto.GetLength(1));
             unsafe
             {
@@ -54,7 +57,8 @@ namespace Engine
         static public void FillPolygonNormal(Triangle t, Color color, Color[,] newPhoto)
         {
             List<Edge> edges = t.GetEdges();
-            List<Edge>[] ET = EdgeBucketSort(edges, newPhoto.GetLength(1));
+            //+100 should be removed
+            List<Edge>[] ET = EdgeBucketSort(edges, newPhoto.GetLength(1)+100);
             int edgesCounter = edges.Count;
             int y = 0;
             while (ET[y] == null)
@@ -64,8 +68,7 @@ namespace Engine
 
             while (edgesCounter != 0 || AET.Any())
             {
-                if (ET.Length == y)
-                    break;
+
                 AET.RemoveAll(x => x.yMax == y);
 
                 if (ET[y] != null)
@@ -80,10 +83,13 @@ namespace Engine
                 }
 
                 AET.Sort((a, b) => a.xMin.CompareTo(b.xMin));
-
+                if(y<newPhoto.GetLength(1))
                 for (int i = 0; i < AET.Count; i += 2)
                     for (int j = (int)(AET[i].xMin); j < (int)(AET[i + 1].xMin); j++)
+                    {
+                        if (j >= newPhoto.GetLength(0)) break;
                         newPhoto[j, y] = color;
+                    }
 
                 y++;
                 for (int i = 0; i < AET.Count; i++)

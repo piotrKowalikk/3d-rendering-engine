@@ -73,7 +73,7 @@ namespace Engine
             n = 1;
             f = 100;
             a = 1;
-            fov = 90;
+            fov = 100;
             CalculateMatrix();
         }
 
