@@ -40,9 +40,22 @@ namespace gk4p1
             Graphics gp = e.Graphics;
 
             var triangles2 = global.GetViewTraingle();
-            using (Bitmap b = ScanLine.GetBitmap(newPhoto, triangles2))
+            global.ClearBuffer();
+            try
             {
-                gp.DrawImage(b, new PointF(0, 0));
+                using (Bitmap b = ScanLine.GetBitmap(newPhoto, triangles2, global.ZBuffor))
+                {
+                    gp.DrawImage(b, new PointF(0, 0));
+                }
+            }
+            catch(Exception error)
+            {
+                if (cubeRadio.Checked)
+                    cube.OutOfBitmap();
+                if (cube2Radio.Checked)
+                    cube2.OutOfBitmap();
+                //  Workspace.Invalidate();
+              //  timer1_Tick(this, new EventArgs());
             }
         }
 
@@ -55,8 +68,12 @@ namespace gk4p1
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-
+            global.ClearBuffer();
+            //cube.RotateZ(0.1f);
+            //cube2.RotateX(-0.1f);
             if (cubeRadio.Checked)
+                InitializeGame.KeysHandler(cube, pressedKey);
+            if (cube2Radio.Checked)
                 InitializeGame.KeysHandler(cube2, pressedKey);
             Workspace.Invalidate();
         }
@@ -95,6 +112,16 @@ namespace gk4p1
 
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
         {
+        }
+
+        private void cube2Radio_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cubeRadio_KeyDown(object sender, KeyEventArgs e)
+        {
+
         }
     }
 }

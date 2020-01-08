@@ -11,11 +11,11 @@ namespace Engine
     static public class ScanLine
     {
         //mesh is needed for colors - it resolves one mesh per time
-        static public Bitmap GetBitmap(Color[,] newPhoto, List<(List<Triangle>,Mesh)> t)
+        static public Bitmap GetBitmap(Color[,] newPhoto, List<(List<Triangle>, Mesh)> t, double[,] zBuffor)
         {
 
             //TODO:
-            Color [] colors = new Color[] { Color.Black, Color.Yellow, Color.Green, Color.Red, Color.Blue, Color.Pink, Color.DarkViolet, Color.Silver, Color.Cyan, Color.Crimson };
+            Color[] colors = new Color[] { Color.Black, Color.Yellow, Color.Green, Color.Red, Color.Blue, Color.Pink, Color.DarkViolet, Color.Silver, Color.Cyan, Color.Crimson, Color.Aqua, Color.Purple, Color.Orange, Color.LightGreen };
             foreach (var tt in t)
             {
                 List<Triangle> triangles2 = tt.Item1;
@@ -23,8 +23,8 @@ namespace Engine
                 int i = 0;
                 foreach (var triangle in triangles2)
                 {
-              //      if ((triangle.A.X > 0 && triangle.A.Y > 0 && triangle.B.X > 0 && triangle.B.Y > 0 && triangle.C.X > 0 && triangle.C.Y > 0) && (triangle.A.X < newPhoto.GetLength(0) && triangle.A.Y < newPhoto.GetLength(1) && triangle.B.X < newPhoto.GetLength(0) && triangle.B.Y < newPhoto.GetLength(1) && triangle.C.X < newPhoto.GetLength(0) && triangle.C.Y < newPhoto.GetLength(1)))
-                        ScanLine.FillPolygonNormal(triangle, colors[i / 2], newPhoto);
+                    //      if ((triangle.A.X > 0 && triangle.A.Y > 0 && triangle.B.X > 0 && triangle.B.Y > 0 && triangle.C.X > 0 && triangle.C.Y > 0) && (triangle.A.X < newPhoto.GetLength(0) && triangle.A.Y < newPhoto.GetLength(1) && triangle.B.X < newPhoto.GetLength(0) && triangle.B.Y < newPhoto.GetLength(1) && triangle.C.X < newPhoto.GetLength(0) && triangle.C.Y < newPhoto.GetLength(1)))
+                    ScanLine.FillPolygonNormal(triangle, colors[i], newPhoto, zBuffor);
                     i++;
                 }
             }
@@ -54,14 +54,14 @@ namespace Engine
             return processedBitmap;
         }
 
-        static public void FillPolygonNormal(Triangle t, Color color, Color[,] newPhoto)
+        static public void FillPolygonNormal(Triangle t, Color color, Color[,] newPhoto, double[,] zBuffor)
         {
             List<Edge> edges = t.GetEdges();
             //+100 should be removed
-            List<Edge>[] ET = EdgeBucketSort(edges, newPhoto.GetLength(1)+100);
+            List<Edge>[] ET = EdgeBucketSort(edges, newPhoto.GetLength(1) + 100);
             int edgesCounter = edges.Count;
             int y = 0;
-            while (ET[y] == null)
+            while (ET.Length >y && ET[y] == null)
                 y++;
 
             List<(double yMax, double xMin, double m)> AET = new List<(double, double, double)>();
@@ -83,14 +83,27 @@ namespace Engine
                 }
 
                 AET.Sort((a, b) => a.xMin.CompareTo(b.xMin));
-                if(y<newPhoto.GetLength(1))
-                for (int i = 0; i < AET.Count; i += 2)
-                    for (int j = (int)(AET[i].xMin); j < (int)(AET[i + 1].xMin); j++)
+                    for (int i = 0; i < AET.Count; i += 2)
                     {
-                        if (j >= newPhoto.GetLength(0)) break;
-                        newPhoto[j, y] = color;
-                    }
+                        {
+                            for (int j = (int)(AET[i].xMin); j < (int)(AET[i + 1].xMin); j++)
+                            { 
+                                double z = t.Z(j, y);
+                             //   if (j >= newPhoto.GetLength(0)) break;
+                                if (z < zBuffor[j, y])
+                                {
+                                    var aasdas = zBuffor[j, y];
+                                newPhoto[j, y] = color;
+                                zBuffor[j, y] = z;
+                            }
+                                if (z != 0)
+                                {
+                                    Console.Write("DUPA");
+                                }
 
+                            }
+                        }
+                    }
                 y++;
                 for (int i = 0; i < AET.Count; i++)
                     AET[i] = (AET[i].yMax, AET[i].xMin + AET[i].m, AET[i].m);
@@ -105,6 +118,7 @@ namespace Engine
             {
                 int index = (int)(edge.p1.Y < edge.p2.Y ? edge.p1.Y : edge.p2.Y);
 
+            //    if (index < 0) return new List<Edge>[0];
                 if (result[index] == null)
                     result[index] = new List<Edge>();
 

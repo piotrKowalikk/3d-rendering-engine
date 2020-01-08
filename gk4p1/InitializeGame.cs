@@ -43,19 +43,21 @@ namespace gk4p1
                         new Triangle() { A=cube.Vertices[0], B=cube.Vertices[1],C= cube.Vertices[4] },
                         new Triangle() { A=cube.Vertices[1], B=cube.Vertices[4],C= cube.Vertices[5] },
                         new Triangle() { A=cube.Vertices[3], B=cube.Vertices[4],C= cube.Vertices[7] },
-                        new Triangle() { A=cube.Vertices[0], B=cube.Vertices[3],C= cube.Vertices[4] }
+                        new Triangle() { A=cube.Vertices[0], B=cube.Vertices[3],C= cube.Vertices[4] },
+                        new Triangle() { A=cube.Vertices[1], B=cube.Vertices[5],C= cube.Vertices[6] },
+                        new Triangle() { A=cube.Vertices[1], B=cube.Vertices[2],C= cube.Vertices[6] }
+
             };
-            cube.Position = new Vector3() { X = 0.50f, Y = 0, Z = 0 };
-            //cube.Position = new Vector3() { X = 0.50f, Y = 0.50f, Z = 0.50f };
-            ///global.Meshes.Add(cube);
+            cube.MoveX(-3);
+            global.Meshes.Add(cube);
 
 
             //cube
             Matrix4x4 cube2View = Matrix4x4.Identity;
             //te trzy przesuniecia na mapie globalej -translacja
-            cube2View.M14 = 10;
-            cube2View.M24 = 5.5f;
-            cube2View.M34 = 5.5f;
+            cube2View.M14 = 0;
+            cube2View.M24 = 1;
+            cube2View.M34 = 1;
 
             cube2 = new Mesh("cube", new Vector4[] {
                                                     new Vector4(-1, -1, -1, 1),
@@ -69,16 +71,18 @@ namespace gk4p1
                                                 }, cube2View);
             cube2.Triangles = new List<Triangle>()
             {
-                        new Triangle() { A=cube2.Vertices[1], B=cube2.Vertices[1],C= cube2.Vertices[3]},
-                        new Triangle() { A=cube2.Vertices[1], B=cube2.Vertices[2],C= cube2.Vertices[3] },
-                        new Triangle() { A=cube2.Vertices[2], B=cube2.Vertices[3],C= cube2.Vertices[6] },
-                        new Triangle() { A=cube2.Vertices[3], B=cube2.Vertices[6],C= cube2.Vertices[7] },
-                        new Triangle() { A=cube2.Vertices[4], B=cube2.Vertices[6],C= cube2.Vertices[7] },
-                        new Triangle() { A=cube2.Vertices[4], B=cube2.Vertices[5],C= cube2.Vertices[6] },
-                        new Triangle() { A=cube2.Vertices[0], B=cube2.Vertices[1],C= cube2.Vertices[4] },
-                        new Triangle() { A=cube2.Vertices[1], B=cube2.Vertices[4],C= cube2.Vertices[5] },
-                        new Triangle() { A=cube2.Vertices[3], B=cube2.Vertices[4],C= cube2.Vertices[7] },
-                        new Triangle() { A=cube2.Vertices[0], B=cube2.Vertices[3],C= cube2.Vertices[4] }
+                        new Triangle() { A=cube.Vertices[0], B= cube.Vertices[1],C= cube.Vertices[3]},
+                        new Triangle() { A=cube.Vertices[1], B=cube.Vertices[2],C= cube.Vertices[3] },
+                        new Triangle() { A=cube.Vertices[2], B=cube.Vertices[3],C= cube.Vertices[6] },
+                        new Triangle() { A=cube.Vertices[3], B=cube.Vertices[6],C= cube.Vertices[7] },
+                        new Triangle() { A=cube.Vertices[4], B=cube.Vertices[6],C= cube.Vertices[7] },
+                        new Triangle() { A=cube.Vertices[4], B=cube.Vertices[5],C= cube.Vertices[6] },
+                        new Triangle() { A=cube.Vertices[0], B=cube.Vertices[1],C= cube.Vertices[4] },
+                        new Triangle() { A=cube.Vertices[1], B=cube.Vertices[4],C= cube.Vertices[5] },
+                        new Triangle() { A=cube.Vertices[3], B=cube.Vertices[4],C= cube.Vertices[7] },
+                        new Triangle() { A=cube.Vertices[0], B=cube.Vertices[3],C= cube.Vertices[4] },
+                        new Triangle() { A=cube.Vertices[1], B=cube.Vertices[5],C= cube.Vertices[6] },
+                        new Triangle() { A=cube.Vertices[1], B=cube.Vertices[2],C= cube.Vertices[6] }
             };
             global.Meshes.Add(cube2);
         }
@@ -105,22 +109,22 @@ namespace gk4p1
                         m.RotateY(-0.1f);
                     break;
 
-                case Keys.Right:
+                case Keys.J:
                         m.MoveY(0.5f);
                     break;
-                case Keys.Left:
+                case Keys.L:
                         m.MoveY(-0.5f);
                     break;
-                case Keys.Up:
+                case Keys.K:
                         m.MoveX(0.5f);
                     break;
-                case Keys.Down:
+                case Keys.I:
                         m.MoveX(-0.5f);
                     break;
-                case Keys.OemPeriod:
+                case Keys.U:
                         m.MoveZ(-0.5f);
                     break;
-                case Keys.Oemcomma:
+                case Keys.O:
                         m.MoveZ(0.5f);
                     break;
             }

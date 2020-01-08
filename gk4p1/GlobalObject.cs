@@ -11,8 +11,10 @@ namespace gk4p1
 {
     public class GlobalObject
     {
-        public int Width { get; set; }
-        public int Height { get; set; }
+        private int width;
+        public int Width { get { return width; } set { width = value; ClearBuffer(); } }
+        private int height;
+        public int Height { get { return height; } set { height= value; ClearBuffer(); } }
 
         public List<Mesh> Meshes { get; set; } = new List<Mesh>();
         public double[,] ZBuffor { get; private set; }
@@ -25,15 +27,15 @@ namespace gk4p1
 
         public GlobalObject()
         {
-            ZBuffor = new double[Width, Height];
             ClearBuffer();
         }
 
         public void ClearBuffer()
         {
+            ZBuffor = new double[Width , Height];
             for (int i = 0; i < ZBuffor.GetLength(0); i++)
                 for (int j = 0; j < ZBuffor.GetLength(1); j++)
-                    ZBuffor[i, j] = double.MinValue;
+                    ZBuffor[i, j] = double.MaxValue;
         }
 
         private void CalculateProjViewMatrix()
@@ -64,7 +66,7 @@ namespace gk4p1
         }
         private Vector4 AdjustToWindow(Vector4 p)
         {
-            return new Vector4((int)((p.X + 1) * (Width / 2)),(int)( (p.Y + 1) * (Height / 2)),(int)( p.Z),(int)( p.W));
+            return new Vector4((int)((p.X + 1) * (Width / 2)),(int)( (p.Y + 1) * (Height / 2)),( p.Z),( p.W));
         }
 
         private Vector4 VectorNormalize(Vector4 vector)

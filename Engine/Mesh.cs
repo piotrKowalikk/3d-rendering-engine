@@ -33,17 +33,17 @@ namespace Engine
 
         public void MoveX(float f)
         {
-           // if(6- Math.Abs(modelMatrix.M24) >0.05 && 6 - Math.Abs(modelMatrix.M34) > 0.05)
+            // if(6- Math.Abs(modelMatrix.M24) >0.05 && 6 - Math.Abs(modelMatrix.M34) > 0.05)
             modelMatrix.M14 = modelMatrix.M14 + f;
         }
         public void MoveY(float f)
         {
-            if (Math.Abs(modelMatrix.M24 + f) < 6 - 0.05)
+        //    if (Math.Abs(modelMatrix.M24 + f) < 6 - 0.05)
                 modelMatrix.M24 = modelMatrix.M24 + f;
         }
         public void MoveZ(float f)
         {
-            if (Math.Abs(modelMatrix.M24 + f) < 6 - 0.05)
+        //    if (Math.Abs(modelMatrix.M24 + f) < 6 - 0.05)
                 modelMatrix.M34 = modelMatrix.M34 + f;
         }
 
@@ -55,13 +55,13 @@ namespace Engine
 
         public void RotateY(float angle)
         {
-            ModelMatrix = SubstractPosition(new Vector3() { X = Position.Y }).RotateY(angle);
+            ModelMatrix = SubstractPosition(new Vector3() { Y = Position.Y }).RotateY(angle);
             AddPosition(new Vector3() { X = Position.Y });
         }
 
         public void RotateZ(float angle)
         {
-            ModelMatrix = SubstractPosition(new Vector3() { X = Position.Z }).RotateZ(angle);
+            ModelMatrix = SubstractPosition(new Vector3() { Z = Position.Z }).RotateZ(angle);
             AddPosition(new Vector3() { X = Position.Z });
         }
 
@@ -77,7 +77,30 @@ namespace Engine
             translationNegateMatrix.M24 = -position.Y;
             translationNegateMatrix.M34 = -position.Z;
         }
+        public void OutOfBitmap()
+        {
 
+            if (ModelMatrix.M24 < -6)
+            {
+                modelMatrix.M24 += 0.5f;
+            }
+            else if (ModelMatrix.M34 < -6)
+            {
+                modelMatrix.M34 += 0.5f;
+            }
+            else if (ModelMatrix.M24 >6)
+            {
+                modelMatrix.M24 -= 0.5f;
+            }
+            else if (ModelMatrix.M34 > 6)
+            {
+                modelMatrix.M34 -= 0.5f;
+            }
+            else
+            {
+                modelMatrix.M14 -= 0.5f;
+            }
+        }
         public void AddPosition(Vector3 Position)
         {
             Matrix4x4 rsl = ModelMatrix;
