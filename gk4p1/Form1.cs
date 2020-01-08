@@ -48,14 +48,14 @@ namespace gk4p1
                     gp.DrawImage(b, new PointF(0, 0));
                 }
             }
-            catch(Exception error)
+            catch (Exception error)
             {
                 if (cubeRadio.Checked)
                     cube.OutOfBitmap();
                 if (cube2Radio.Checked)
                     cube2.OutOfBitmap();
                 //  Workspace.Invalidate();
-              //  timer1_Tick(this, new EventArgs());
+                //  timer1_Tick(this, new EventArgs());
             }
         }
 
@@ -122,6 +122,41 @@ namespace gk4p1
         private void cubeRadio_KeyDown(object sender, KeyEventArgs e)
         {
 
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void XCameraTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void YCameraTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ZCameraTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void constantCameraButton_Click(object sender, EventArgs e)
+        {
+            Vector3 cameraNewPosition = camera.Position;
+            if (float.TryParse(XCameraTextBox.Text, out float rsl))
+                cameraNewPosition.X = rsl;
+            if (float.TryParse(YCameraTextBox.Text, out float rsl2))
+                cameraNewPosition.Y = rsl2;
+            if (float.TryParse(ZCameraTextBox.Text, out float rsl3))
+                cameraNewPosition.Z = rsl3;
+
+            camera.UpdateCamera(cameraNewPosition);
+            viewMatrix1.Camera = camera;
+            global.ViewMatrix = viewMatrix1;
         }
     }
 }

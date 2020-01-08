@@ -38,7 +38,7 @@ namespace gk4p1
                     ZBuffor[i, j] = double.MaxValue;
         }
 
-        private void CalculateProjViewMatrix()
+        public void CalculateProjViewMatrix()
         {
             ProjViewMatrix = Matrix4x4.Multiply(ProjMatrix.Matrix, ViewMatrix.Matrix);
         }

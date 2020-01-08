@@ -93,5 +93,10 @@ namespace Engine
                 Z = ZAxisVersor.X * XAxisVersor.Y - ZAxisVersor.Y * XAxisVersor.X
             };
         }
+
+        public void UpdateCamera(Vector3 position)
+        {
+            Position = position;
+        }
     }
 }
