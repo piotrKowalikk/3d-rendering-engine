@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Camera.cs" />
     <Compile Include="Edge.cs" />
+    <Compile Include="GeometryProvider.cs" />
     <Compile Include="Mesh.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MatrixExtension.cs" />

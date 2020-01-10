@@ -64,9 +64,10 @@ namespace gk4p1
             }
             return rsl;
         }
-        private Vector4 AdjustToWindow(Vector4 p)
+        public Vector4 AdjustToWindow(Vector4 p)
         {
-            return new Vector4((int)((p.X + 1) * (Width / 2)),(int)( (p.Y + 1) * (Height / 2)),( p.Z),( p.W));
+            Vector4 rsl = new Vector4((int)((p.X + 1) * (Width / 2)), (int)((p.Y + 1) * (Height / 2)), (p.Z), (p.W));
+            return rsl;
         }
 
         private Vector4 VectorNormalize(Vector4 vector)

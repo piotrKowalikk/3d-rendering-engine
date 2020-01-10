@@ -17,7 +17,7 @@ namespace Engine
         private Matrix4x4 modelMatrix;
         public Matrix4x4 ModelMatrix { get { return modelMatrix; } private set { modelMatrix = value; } }
         private Vector3 position;
-        public Vector3 Position { get { return position; } set { position = value; CalculateTranlationMatrix(); } }
+        public Vector3 Position { get { return new Vector3() {X=modelMatrix.M14,Y=modelMatrix.M24,Z=modelMatrix.M34 }; } set {} }
         public List<Color> Colors { get; set; }
 
         private Matrix4x4 translationMatrix;

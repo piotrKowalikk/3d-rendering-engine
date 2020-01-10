@@ -15,10 +15,11 @@ namespace gk4p1
         Color[,] newPhoto;
         Mesh cube;
         Mesh cube2;
+        Mesh sphere;
         GlobalObject global = new GlobalObject();
         Camera camera = new Camera();
         Keys pressedKey = Keys.End;
-
+        CameraEnum cameraEnum;
         // x     z
         //       ^
         // y <--\|
@@ -26,9 +27,10 @@ namespace gk4p1
         public Form1()
         {
             InitializeComponent();
-            InitializeGame.Initialize(Workspace, global, camera, viewMatrix1, projectionMatrix, ref cube, ref cube2);
-
+            InitializeGame.Initialize(Workspace, global, camera, viewMatrix1, projectionMatrix, ref cube, ref cube2,ref sphere);
+            cameraEnum = CameraEnum.Constant;
             timer1.Start();
+            timer1.Interval = 10;
 
             Workspace.Invalidate();
         }
@@ -39,7 +41,7 @@ namespace gk4p1
             e.Graphics.Clear(Color.White);
             Graphics gp = e.Graphics;
 
-            var triangles2 = global.GetViewTraingle();
+            List<(List<Triangle>,Mesh)> triangles2 = global.GetViewTraingle();
             global.ClearBuffer();
             try
             {
@@ -54,8 +56,6 @@ namespace gk4p1
                     cube.OutOfBitmap();
                 if (cube2Radio.Checked)
                     cube2.OutOfBitmap();
-                //  Workspace.Invalidate();
-                //  timer1_Tick(this, new EventArgs());
             }
         }
 
@@ -72,7 +72,11 @@ namespace gk4p1
             //cube.RotateZ(0.1f);
             //cube2.RotateX(-0.1f);
             if (cubeRadio.Checked)
+            {
                 InitializeGame.KeysHandler(cube, pressedKey);
+                if (cameraEnum == CameraEnum.Following)
+                    CameraUIHandlers.UpdateCameraTarget(global, cube, camera, ref viewMatrix1);
+            }
             if (cube2Radio.Checked)
                 InitializeGame.KeysHandler(cube2, pressedKey);
             Workspace.Invalidate();
@@ -146,17 +150,24 @@ namespace gk4p1
 
         private void constantCameraButton_Click(object sender, EventArgs e)
         {
-            Vector3 cameraNewPosition = camera.Position;
-            if (float.TryParse(XCameraTextBox.Text, out float rsl))
-                cameraNewPosition.X = rsl;
-            if (float.TryParse(YCameraTextBox.Text, out float rsl2))
-                cameraNewPosition.Y = rsl2;
-            if (float.TryParse(ZCameraTextBox.Text, out float rsl3))
-                cameraNewPosition.Z = rsl3;
+            if (cameraEnum == CameraEnum.Constant || cameraEnum == CameraEnum.Following)
+            {
+                CameraUIHandlers.ConstantCameraHandler(global, camera, ref viewMatrix1, XCameraTextBox.Text, YCameraTextBox.Text, ZCameraTextBox.Text);
+            }
+        }
 
-            camera.UpdateCamera(cameraNewPosition);
-            viewMatrix1.Camera = camera;
-            global.ViewMatrix = viewMatrix1;
+        private void followsCubeCamraRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (followsCubeCamraRadio.Checked)
+                cameraEnum = CameraEnum.Following;
+            else if (constantCameraRadio.Checked)
+            {
+                if (cameraEnum == CameraEnum.Following)
+                    CameraUIHandlers.ClearTarget(global, camera, ref viewMatrix1);
+                cameraEnum = CameraEnum.Constant;
+
+            }
+
         }
     }
 }

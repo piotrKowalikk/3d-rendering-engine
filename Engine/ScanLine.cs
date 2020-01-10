@@ -15,7 +15,7 @@ namespace Engine
         {
 
             //TODO:
-            Color[] colors = new Color[] { Color.Black, Color.Yellow, Color.Green, Color.Red, Color.Blue, Color.Pink, Color.DarkViolet, Color.Silver, Color.Cyan, Color.Crimson, Color.Aqua, Color.Purple, Color.Orange, Color.LightGreen };
+            Color[] colors = new Color[] { Color.Black, Color.Yellow, Color.Green, Color.Red, Color.Blue, Color.Pink, Color.DarkViolet, Color.Silver, Color.Cyan, Color.Crimson, Color.Aqua, Color.Purple, Color.Orange, Color.LightGreen, Color.Black, Color.Yellow, Color.Green, Color.Red, Color.Blue, Color.Pink };
             foreach (var tt in t)
             {
                 List<Triangle> triangles2 = tt.Item1;
@@ -24,7 +24,7 @@ namespace Engine
                 foreach (var triangle in triangles2)
                 {
                     //      if ((triangle.A.X > 0 && triangle.A.Y > 0 && triangle.B.X > 0 && triangle.B.Y > 0 && triangle.C.X > 0 && triangle.C.Y > 0) && (triangle.A.X < newPhoto.GetLength(0) && triangle.A.Y < newPhoto.GetLength(1) && triangle.B.X < newPhoto.GetLength(0) && triangle.B.Y < newPhoto.GetLength(1) && triangle.C.X < newPhoto.GetLength(0) && triangle.C.Y < newPhoto.GetLength(1)))
-                    ScanLine.FillPolygonNormal(triangle, colors[i], newPhoto, zBuffor);
+                    ScanLine.FillPolygonNormal(triangle, colors[i%colors.Length], newPhoto, zBuffor);
                     i++;
                 }
             }
