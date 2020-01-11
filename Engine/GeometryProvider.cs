@@ -9,7 +9,7 @@ namespace Engine
 {
     public static class GeometryProvider
     {
-
+        //https://gamedev.stackexchange.com/questions/31308/algorithm-for-creating-spheres
         private static int GetMidpointIndex(Dictionary<string, int> midpointIndices, List<Vector3> vertices, int i0, int i1)
         {
 

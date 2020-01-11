@@ -20,6 +20,7 @@ namespace gk4p1
         Camera camera = new Camera();
         Keys pressedKey = Keys.End;
         CameraEnum cameraEnum;
+        LightMode lightMode= LightMode.None;
         // x     z
         //       ^
         // y <--\|
@@ -45,17 +46,19 @@ namespace gk4p1
             global.ClearBuffer();
             try
             {
-                using (Bitmap b = ScanLine.GetBitmap(newPhoto, triangles2, global.ZBuffor))
+                using (Bitmap b = ScanLine.GetBitmap(newPhoto, triangles2, global.ZBuffor, lightMode))
                 {
                     gp.DrawImage(b, new PointF(0, 0));
                 }
             }
-            catch (Exception error)
+            catch (IndexOutOfRangeException error)
             {
                 if (cubeRadio.Checked)
                     cube.OutOfBitmap();
                 if (cube2Radio.Checked)
                     cube2.OutOfBitmap();
+                if (sphereRadio.Checked)
+                    sphere.OutOfBitmap();
             }
         }
 
@@ -79,6 +82,9 @@ namespace gk4p1
             }
             if (cube2Radio.Checked)
                 InitializeGame.KeysHandler(cube2, pressedKey);
+            if(sphereRadio.Checked)
+                InitializeGame.KeysHandler(sphere, pressedKey);
+
             Workspace.Invalidate();
         }
 
@@ -167,6 +173,35 @@ namespace gk4p1
                 cameraEnum = CameraEnum.Constant;
 
             }
+
+        }
+
+        private void noneShaderRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (noneShaderRadio.Checked)
+                lightMode = LightMode.None;
+        }
+
+        private void phongShaderRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (phongShaderRadio.Checked)
+                lightMode = LightMode.Phong;
+        }
+
+        private void gouraudShaderRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (gouraudShaderRadio.Checked)
+                lightMode = LightMode.Gouraud;
+        }
+
+        private void flatShaderRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (flatShaderRadio.Checked)
+                lightMode = LightMode.Flat;
+        }
+
+        private void sphereRadio_CheckedChanged(object sender, EventArgs e)
+        {
 
         }
     }

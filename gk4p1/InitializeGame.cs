@@ -55,9 +55,9 @@ namespace gk4p1
             //cube2
             Matrix4x4 cube2View = Matrix4x4.Identity;
             //te trzy przesuniecia na mapie globalej -translacja
-            cube2View.M14 = 0;
-            cube2View.M24 = 1;
-            cube2View.M34 = 1;
+            cube2View.M14 = -5;
+            cube2View.M24 = 6;
+            cube2View.M34 = 4;
 
             cube2 = new Mesh("cube", new Vector4[] {
                                                     new Vector4(-1, -1, -1, 1),
@@ -92,7 +92,7 @@ namespace gk4p1
 
             GeometryProvider.Icosahedron(vectors, indices);
             List<Triangle> triangles = new List<Triangle>();
-            for (var i = 0; i < 2; i++)
+            for (var i = 0; i < 1; i++)
                 GeometryProvider.Subdivide(vectors, indices, true);
 
             /// normalize vectors to "inflate" the icosahedron into a sphere.
@@ -111,7 +111,9 @@ namespace gk4p1
                 });
             }
             sphere.Triangles = triangles;
-            //sphere.MoveX(-5);
+            sphere.MoveX(-3.5f);
+            sphere.MoveY(-6);
+            sphere.MoveZ(-6);
 
             global.Meshes.Add(sphere); 
         }

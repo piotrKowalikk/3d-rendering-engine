@@ -11,11 +11,11 @@ namespace Engine
     static public class ScanLine
     {
         //mesh is needed for colors - it resolves one mesh per time
-        static public Bitmap GetBitmap(Color[,] newPhoto, List<(List<Triangle>, Mesh)> t, double[,] zBuffor)
+        static public Bitmap GetBitmap(Color[,] newPhoto, List<(List<Triangle>, Mesh)> t, double[,] zBuffor, LightMode lightMode)
         {
 
             //TODO:
-            Color[] colors = new Color[] { Color.Black, Color.Yellow, Color.Green, Color.Red, Color.Blue, Color.Pink, Color.DarkViolet, Color.Silver, Color.Cyan, Color.Crimson, Color.Aqua, Color.Purple, Color.Orange, Color.LightGreen, Color.Black, Color.Yellow, Color.Green, Color.Red, Color.Blue, Color.Pink };
+            Color[] colors = new Color[] { Color.Black };// Color.Green, Color.Red, Color.Blue, Color.Pink, Color.DarkViolet, Color.Silver, Color.Cyan, Color.Crimson, Color.Aqua, Color.Purple, Color.Orange, Color.LightGreen, Color.Black, Color.Yellow, Color.Green, Color.Red, Color.Blue, Color.Pink };
             foreach (var tt in t)
             {
                 List<Triangle> triangles2 = tt.Item1;
@@ -24,7 +24,7 @@ namespace Engine
                 foreach (var triangle in triangles2)
                 {
                     //      if ((triangle.A.X > 0 && triangle.A.Y > 0 && triangle.B.X > 0 && triangle.B.Y > 0 && triangle.C.X > 0 && triangle.C.Y > 0) && (triangle.A.X < newPhoto.GetLength(0) && triangle.A.Y < newPhoto.GetLength(1) && triangle.B.X < newPhoto.GetLength(0) && triangle.B.Y < newPhoto.GetLength(1) && triangle.C.X < newPhoto.GetLength(0) && triangle.C.Y < newPhoto.GetLength(1)))
-                    ScanLine.FillPolygonNormal(triangle, colors[i%colors.Length], newPhoto, zBuffor);
+                    ScanLine.FillPolygonNormal(triangle, colors[i%colors.Length], newPhoto, zBuffor, lightMode);
                     i++;
                 }
             }
@@ -54,7 +54,7 @@ namespace Engine
             return processedBitmap;
         }
 
-        static public void FillPolygonNormal(Triangle t, Color color, Color[,] newPhoto, double[,] zBuffor)
+        static public void FillPolygonNormal(Triangle t, Color color, Color[,] newPhoto, double[,] zBuffor,LightMode lightMode)
         {
             List<Edge> edges = t.GetEdges();
             //+100 should be removed
@@ -93,13 +93,9 @@ namespace Engine
                                 if (z < zBuffor[j, y])
                                 {
                                     var aasdas = zBuffor[j, y];
-                                newPhoto[j, y] = color;
+                                newPhoto[j, y] = LightProvider.GetColor(j,y,(float)z,color, lightMode, t);
                                 zBuffor[j, y] = z;
                             }
-                                if (z != 0)
-                                {
-                                    Console.Write("DUPA");
-                                }
 
                             }
                         }

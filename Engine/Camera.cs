@@ -59,7 +59,7 @@ namespace Engine
 
         public void Initialize()
         {
-            Position = new Vector3() {X=3,Y=0.5f,Z=0.5f };
+            Position = new Vector3() {X=3,Y=0,Z=0 };
             Target = new Vector3() { X = 0, Y = 0, Z = 0 };
             UpVector = new Vector3() { X = 0, Y = 0, Z = 1 };
         }

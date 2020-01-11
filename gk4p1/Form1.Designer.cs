@@ -47,11 +47,18 @@
             this.followsCubeCamraRadio = new System.Windows.Forms.RadioButton();
             this.constantCameraRadio = new System.Windows.Forms.RadioButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.noneShaderRadio = new System.Windows.Forms.RadioButton();
+            this.phongShaderRadio = new System.Windows.Forms.RadioButton();
+            this.gouraudShaderRadio = new System.Windows.Forms.RadioButton();
+            this.flatShaderRadio = new System.Windows.Forms.RadioButton();
+            this.sphereRadio = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Workspace)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -89,6 +96,7 @@
             // 
             this.flowLayoutPanel1.Controls.Add(this.groupBox1);
             this.flowLayoutPanel1.Controls.Add(this.groupBox2);
+            this.flowLayoutPanel1.Controls.Add(this.groupBox3);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(452, 2);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
@@ -98,6 +106,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.sphereRadio);
             this.groupBox1.Controls.Add(this.cube2Radio);
             this.groupBox1.Controls.Add(this.cubeRadio);
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
@@ -126,10 +135,10 @@
             this.cubeRadio.Checked = true;
             this.cubeRadio.Location = new System.Drawing.Point(3, 16);
             this.cubeRadio.Name = "cubeRadio";
-            this.cubeRadio.Size = new System.Drawing.Size(85, 17);
+            this.cubeRadio.Size = new System.Drawing.Size(55, 17);
             this.cubeRadio.TabIndex = 0;
             this.cubeRadio.TabStop = true;
-            this.cubeRadio.Text = "radioButton1";
+            this.cubeRadio.Text = "cube1";
             this.cubeRadio.UseVisualStyleBackColor = true;
             this.cubeRadio.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             this.cubeRadio.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cubeRadio_KeyDown);
@@ -268,6 +277,77 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.flatShaderRadio);
+            this.groupBox3.Controls.Add(this.gouraudShaderRadio);
+            this.groupBox3.Controls.Add(this.phongShaderRadio);
+            this.groupBox3.Controls.Add(this.noneShaderRadio);
+            this.groupBox3.Location = new System.Drawing.Point(3, 210);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(143, 100);
+            this.groupBox3.TabIndex = 5;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "groupBox3";
+            // 
+            // noneShaderRadio
+            // 
+            this.noneShaderRadio.AutoSize = true;
+            this.noneShaderRadio.Checked = true;
+            this.noneShaderRadio.Location = new System.Drawing.Point(6, 28);
+            this.noneShaderRadio.Name = "noneShaderRadio";
+            this.noneShaderRadio.Size = new System.Drawing.Size(51, 17);
+            this.noneShaderRadio.TabIndex = 0;
+            this.noneShaderRadio.TabStop = true;
+            this.noneShaderRadio.Text = "None";
+            this.noneShaderRadio.UseVisualStyleBackColor = true;
+            this.noneShaderRadio.CheckedChanged += new System.EventHandler(this.noneShaderRadio_CheckedChanged);
+            // 
+            // phongShaderRadio
+            // 
+            this.phongShaderRadio.AutoSize = true;
+            this.phongShaderRadio.Location = new System.Drawing.Point(73, 28);
+            this.phongShaderRadio.Name = "phongShaderRadio";
+            this.phongShaderRadio.Size = new System.Drawing.Size(56, 17);
+            this.phongShaderRadio.TabIndex = 1;
+            this.phongShaderRadio.Text = "Phong";
+            this.phongShaderRadio.UseVisualStyleBackColor = true;
+            this.phongShaderRadio.CheckedChanged += new System.EventHandler(this.phongShaderRadio_CheckedChanged);
+            // 
+            // gouraudShaderRadio
+            // 
+            this.gouraudShaderRadio.AutoSize = true;
+            this.gouraudShaderRadio.Location = new System.Drawing.Point(6, 51);
+            this.gouraudShaderRadio.Name = "gouraudShaderRadio";
+            this.gouraudShaderRadio.Size = new System.Drawing.Size(66, 17);
+            this.gouraudShaderRadio.TabIndex = 2;
+            this.gouraudShaderRadio.Text = "Gouraud";
+            this.gouraudShaderRadio.UseVisualStyleBackColor = true;
+            this.gouraudShaderRadio.CheckedChanged += new System.EventHandler(this.gouraudShaderRadio_CheckedChanged);
+            // 
+            // flatShaderRadio
+            // 
+            this.flatShaderRadio.AutoSize = true;
+            this.flatShaderRadio.Location = new System.Drawing.Point(73, 51);
+            this.flatShaderRadio.Name = "flatShaderRadio";
+            this.flatShaderRadio.Size = new System.Drawing.Size(42, 17);
+            this.flatShaderRadio.TabIndex = 3;
+            this.flatShaderRadio.Text = "Flat";
+            this.flatShaderRadio.UseVisualStyleBackColor = true;
+            this.flatShaderRadio.CheckedChanged += new System.EventHandler(this.flatShaderRadio_CheckedChanged);
+            // 
+            // sphereRadio
+            // 
+            this.sphereRadio.AutoSize = true;
+            this.sphereRadio.Location = new System.Drawing.Point(60, 16);
+            this.sphereRadio.Name = "sphereRadio";
+            this.sphereRadio.Size = new System.Drawing.Size(57, 17);
+            this.sphereRadio.TabIndex = 2;
+            this.sphereRadio.TabStop = true;
+            this.sphereRadio.Text = "sphere";
+            this.sphereRadio.UseVisualStyleBackColor = true;
+            this.sphereRadio.CheckedChanged += new System.EventHandler(this.sphereRadio_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -288,6 +368,8 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -312,6 +394,12 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox YCameraTextBox;
         private System.Windows.Forms.Button constantCameraButton;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.RadioButton flatShaderRadio;
+        private System.Windows.Forms.RadioButton gouraudShaderRadio;
+        private System.Windows.Forms.RadioButton phongShaderRadio;
+        private System.Windows.Forms.RadioButton noneShaderRadio;
+        private System.Windows.Forms.RadioButton sphereRadio;
     }
 }
 
